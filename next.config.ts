@@ -4,7 +4,7 @@ import createNextIntlPlugin from 'next-intl/plugin';
 
 const nextConfig: NextConfig = {
   // output: 'export', // Outputs a Single-Page Application (SPA).
-  distDir: './dist', // Changes the build output directory to `./dist/`.
+  distDir: './.next', // Changes the build output directory to `./dist/`.
 };
 
 const withBundleAnalyzer = NextBundleAnalyzer({

@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 5, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"","debugId":null}},
-    {"offset": {"line": 38, "column": 0}, "map": {"version":3,"sources":["file:///c:/Users/igorm/Downloads/next-platform-starter-main/src/app/%5Blocale%5D/cards/page.tsx"],"sourcesContent":["import dynamic from 'next/dynamic';\n\nconst Cards = dynamic(() => import('./Cards'));\n\nexport default function Page() {\n  return <Cards></Cards>;\n}\n"],"names":[],"mappings":";;;;AAAA;;;;AAEA,MAAM,QAAQ,CAAA,GAAA,+JAAA,CAAA,UAAO,AAAD,EAAE;;;;;;;AAEP,SAAS;IACtB,qBAAO,8OAAC;;;;;AACV","debugId":null}}]
-}
