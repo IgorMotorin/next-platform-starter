@@ -1,0 +1,23 @@
+{
+  "[project]/src/component/Details.tsx [app-client] (ecmascript, next/dynamic entry)": {
+    "id": "[project]/src/component/Details.tsx [app-client] (ecmascript, next/dynamic entry)",
+    "files": [
+      "static/chunks/src_component_01945fad._.js",
+      "static/chunks/src_component_Details_tsx_e69ec397._.js"
+    ]
+  },
+  "[project]/src/component/Search.tsx [app-client] (ecmascript, next/dynamic entry)": {
+    "id": "[project]/src/component/Search.tsx [app-client] (ecmascript, next/dynamic entry)",
+    "files": [
+      "static/chunks/src_a297668c._.js",
+      "static/chunks/src_component_Search_tsx_e69ec397._.js"
+    ]
+  },
+  "[project]/src/component/Popup.tsx [app-client] (ecmascript, next/dynamic entry)": {
+    "id": "[project]/src/component/Popup.tsx [app-client] (ecmascript, next/dynamic entry)",
+    "files": [
+      "static/chunks/src_component_Popup_tsx_99be25a6._.js",
+      "static/chunks/src_component_Popup_tsx_e69ec397._.js"
+    ]
+  }
+}
