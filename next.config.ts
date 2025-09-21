@@ -1,15 +1,7 @@
-import type { NextConfig } from 'next';
-import NextBundleAnalyzer from '@next/bundle-analyzer';
+import { NextConfig } from 'next';
 import createNextIntlPlugin from 'next-intl/plugin';
 
-const nextConfig: NextConfig = {
-  // output: 'export', // Outputs a Single-Page Application (SPA).
-  distDir: './.next', // Changes the build output directory to `./dist/`.
-};
-
-const withBundleAnalyzer = NextBundleAnalyzer({
-  enabled: true,
-});
+const nextConfig: NextConfig = {};
 
 const withNextIntl = createNextIntlPlugin();
-export default withNextIntl(withBundleAnalyzer(nextConfig));
+export default withNextIntl(nextConfig);

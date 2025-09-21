@@ -1,41 +1,86 @@
-# Next.js on Netlify Platform Starter
+# REST Client App
 
-[Live Demo](https://nextjs-platform-starter.netlify.app/)
+Initial setup for the **RS School React Course 2025 final task** project.
 
-A modern starter based on Next.js 14 (App Router), Tailwind, and [Netlify Core Primitives](https://docs.netlify.com/core/overview/#develop) (Edge Functions, Image CDN, Blob Store).
+## 🚀 How to Run
 
-In this site, Netlify Core Primitives are used both implictly for running Next.js features (e.g. Route Handlers, image optimization via `next/image`, and more) and also explicitly by the user code.
-
-Implicit usage means you're using any Next.js functionality and everything "just works" when deployed - all the plumbing is done for you. Explicit usage is framework-agnostic and typically provides more features than what Next.js exposes.
-
-## Deploying to Netlify
-
-This site requires [Netlify Next Runtime v5](https://docs.netlify.com/frameworks/next-js/overview/) for full functionality. That version is now being gradually rolled out to all Netlify accounts.
-
-After deploying via the button below, please visit the **Site Overview** page for your new site to check whether it is already using the v5 runtime. If not, you'll be prompted to opt-in to to v5.
-
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/netlify-templates/next-platform-starter)
-
-## Developing Locally
-
-1. Clone this repository, then run `npm install` in its root directory.
-
-2. For the starter to have full functionality locally (e.g. edge functions, blob store), please ensure you have an up-to-date version of Netlify CLI. Run:
-
-```
-npm install netlify-cli@latest -g
+```bash
+git clone https://github.com/IgorMotorin/rest-client-app.git
+cd rest-client-app
+npm install
+npm run dev
 ```
 
-3. Link your local repository to the deployed Netlify site. This will ensure you're using the same runtime version for both local development and your deployed site.
+App will be available at [http://localhost:3000](http://localhost:3000).
+
+## ✅ What’s set up
+
+- Next.js (App Router) + TypeScript
+- Added dependencies: firebase, firebase-admin, next-intl, zustand, tailwindcss, tailgrids, zod, react-hook-form
+- Firebase client SDK initialized (`src/lib/firebase.ts`)
+- Minimal routes:
+  - Localized Home page (`/en`, `/ru`)
+  - Localized 404 page
+- Localization with `next-intl` (English + Russian JSON files)
+- Project folders aligned with suggested structure (`components/`, `services/`, `store/`, `i18n/`)
+- `.gitkeep` added to keep empty dirs under version control
+- Note: Global CSS variables for colors are included, but these are not final — we can decide together on the exact palette and global styling.
+
+## 🔑 Firebase Setup
+
+This project uses **Firebase** (Auth + Firestore).  
+Before running locally, create a `.env` file in the project root with your Firebase config:
+
+```env
+NEXT_PUBLIC_FIREBASE_API_KEY=your_api_key
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_project_id
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_project.appspot.com
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
+```
+
+## ❌ Not yet
+
+- `/pages/` directory (Next.js uses `app/` instead)
+- Testing framework (pending team decision)
+- Full feature implementation (REST client, variables, history)
+
+## 📂 Structure
+
+### Suggested
 
 ```
-netlify link
+src/
+├── components/
+├── pages/
+├── services/
+├── store/
+├── App.tsx
+├── index.tsx
+└── setupTests.ts
 ```
 
-4. Then, run the Next.js development server via Netlify CLI:
+### Current
 
 ```
-netlify dev
+src/
+└── app/
+    ├── [locale]/
+    │   ├── layout.tsx
+    │   ├── not-found.tsx
+    │   └── Rest.tsx
+    └── globals.css
+├── components/
+├── i18n/
+├── services/
+└── store/
 ```
 
-If your browser doesn't navigate to the site automatically, visit [localhost:8888](http://localhost:8888).
+## 📝 Next Steps
+
+- Pick a testing framework (Jest, Vitest, etc.)
+- Implement components (`RequestForm`, `ResponsePanel`)
+- Add Firebase Auth logic
+- Build REST client, Variables, History routes
+- Replace `.gitkeep` with real code
