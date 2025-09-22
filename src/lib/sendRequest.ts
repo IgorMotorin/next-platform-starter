@@ -15,6 +15,12 @@ export async function sendRequest(userId: string) {
     },
     {}
   );
+  const query = state.query.reduce<Record<string, string>>((acc, query) => {
+    if (query.select) {
+      acc[query.key] = query.value;
+    }
+    return acc;
+  }, {});
   let body: string | null = null;
   if (method !== 'GET') {
     switch (state.body.select) {
@@ -37,11 +43,15 @@ export async function sendRequest(userId: string) {
     }
   }
   const startTime = performance.now();
-  const { response, responseBody, error } = await fetchRequest(url, {
-    method,
-    headers,
-    body,
-  });
+  const { response, responseBody, error } = await fetchRequest(
+    url,
+    {
+      method,
+      headers,
+      body,
+    },
+    query
+  );
 
   const endTime = performance.now();
   const latency = Number((endTime - startTime).toFixed(3));

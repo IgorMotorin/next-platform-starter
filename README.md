@@ -11,11 +11,11 @@ npm install
 npm run dev
 ```
 
-App will be available    at [http://localhost:3000](http://localhost:3000).
+App will be available at [http://localhost:3000](http://localhost:3000).
 
 ## ✅ What’s set up
- 
-- Next.js (App Router)  +  TypeScript
+
+- Next.js (App Router) + TypeScript
 - Added dependencies: firebase, firebase-admin, next-intl, zustand, tailwindcss, tailgrids, zod, react-hook-form
 - Firebase client SDK initialized (`src/lib/firebase.ts`)
 - Minimal routes:
