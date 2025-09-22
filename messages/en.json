@@ -94,7 +94,9 @@
     "goToRestClient": "REST Client",
     "status": "Status: {status}",
     "latency": "Latency: {latency} ms",
-    "date": "Date: {date}"
+    "date": "Date: {date}",
+    "request": "Request size: {request} ",
+    "response": "Response size: {response} "
   },
   "Rest": {
     "select": "Select method",

@@ -94,7 +94,9 @@
     "goToRestClient": "REST Клиент",
     "status": "Статус: {status}",
     "latency": "Задержка: {latency} мс",
-    "date": "Дата: {date}"
+    "date": "Дата: {date}",
+    "request": "Размер запроса: {request}",
+    "response": "Размер ответа: {response}"
   },
   "Rest": {
     "select": "Выбрать метод",

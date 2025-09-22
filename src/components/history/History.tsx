@@ -48,6 +48,8 @@ export default async function History({ userId, locale }: HistoryProps) {
               <Typography variant="body2" color="text.secondary">
                 {t('status', { status: item.statusCode })} |{' '}
                 {t('latency', { latency: item.latency })} |{' '}
+                {t('request', { request: item.requestSize })} |{' '}
+                {t('response', { response: item.responseSize })} |{' '}
                 {t('date', { date: new Date(item.timestamp).toLocaleString() })}
               </Typography>
             </Paper>
