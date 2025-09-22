@@ -13,6 +13,8 @@ import {
 } from '@mui/material';
 import { useRestStore } from '@/store/restStore';
 import { useTranslations } from 'next-intl';
+import { replaceVariables } from '@/accessory/function';
+import { useVariablesStore } from '@/store/variablesStore';
 
 export default function CodeGeneration() {
   const t = useTranslations('Rest');
@@ -26,6 +28,7 @@ export default function CodeGeneration() {
   const body = useRestStore((state) => state.body);
   const bodyTable = useRestStore((state) => state.bodyTable);
   const query = useRestStore((state) => state.query);
+  const variables = useVariablesStore((state) => state.variables);
 
   const handleCopy = async () => {
     try {
@@ -39,10 +42,17 @@ export default function CodeGeneration() {
   };
 
   const handleGenerateCode = useCallback(() => {
-    const header = headers.map((item) => ({
-      key: item.key,
-      value: item.value,
-    }));
+    const header = headers.map(
+      (item) => {
+        const [key] = replaceVariables(item.key, variables);
+        const [value] = replaceVariables(item.value, variables);
+        return {
+          key: String(key),
+          value: String(value),
+        };
+      },
+      [variables]
+    );
 
     const queryString: string[] = [];
     query.forEach((item) => {
@@ -62,19 +72,26 @@ export default function CodeGeneration() {
       } = {};
       bodyTable.forEach((item) => {
         if (!item.select) return;
-        tmp[item.key] = item.value;
+        const [key] = replaceVariables(item.key, variables);
+        const [value] = replaceVariables(item.value, variables);
+        const keyObj = String(key);
+        tmp[keyObj] = value as string;
       });
       bodyReq.raw = JSON.stringify(tmp);
     }
     if (body.select === 'json') {
-      bodyReq.raw = body.json;
+      const [json] = replaceVariables(body.json, variables);
+      bodyReq.raw = String(json);
     }
     if (body.select === 'text') {
-      bodyReq.raw = body.text;
+      const [text] = replaceVariables(body.text, variables);
+      bodyReq.raw = String(text);
     }
 
+    const [vars] = replaceVariables(url, variables);
+
     const endpoint = {
-      url: url + params,
+      url: vars + params,
       method: method,
       header: header,
       body: bodyReq,
@@ -107,7 +124,17 @@ export default function CodeGeneration() {
         setGenerateCode(isError ? '' : code);
       }
     );
-  }, [language, variant, method, url, headers, body, bodyTable, query]);
+  }, [
+    language,
+    variant,
+    method,
+    url,
+    headers,
+    body,
+    bodyTable,
+    query,
+    variables,
+  ]);
 
   useEffect(() => {
     handleGenerateCode();

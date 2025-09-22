@@ -52,10 +52,11 @@ export default function Rest({
       return;
     }
     try {
-      const { response } = await sendRequest(userId);
+      const { response, error } = await sendRequest(userId);
       if (response) {
         setResponse(response);
       }
+      toast.error(error);
     } catch (err: unknown) {
       if (err instanceof Error) {
         setError(err.message);

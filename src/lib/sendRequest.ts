@@ -1,15 +1,22 @@
 import { useRestStore } from '@/store/restStore';
 import { sendHistory } from './sendHistory';
 import { fetchRequest } from './fetchRequest';
+import { replaceVariables } from '@/accessory/function';
+import { useVariablesStore } from '@/store/variablesStore';
 
 export async function sendRequest(userId: string) {
   const state = useRestStore.getState();
   const url = state.url;
   const method = state.method;
+  const variablesState = useVariablesStore.getState();
+  const variables = variablesState.variables;
   const headers = state.headers.reduce<Record<string, string>>(
     (acc, header) => {
       if (header.select) {
-        acc[header.key] = header.value;
+        const [key] = replaceVariables(header.key, variables);
+        const [value] = replaceVariables(header.value, variables);
+        const keyText = String(key);
+        acc[keyText] = String(value);
       }
       return acc;
     },
@@ -24,17 +31,24 @@ export async function sendRequest(userId: string) {
   let body: string | null = null;
   if (method !== 'GET') {
     switch (state.body.select) {
-      case 'text':
-        body = state.body.text;
+      case 'text': {
+        const [text] = replaceVariables(state.body.text, variables);
+        body = String(text);
         break;
-      case 'json':
-        body = state.body.json;
+      }
+      case 'json': {
+        const [json] = replaceVariables(state.body.json, variables);
+        body = String(json);
         break;
+      }
       case 'form':
         body = JSON.stringify(
           state.bodyTable.reduce<Record<string, string>>((acc, item) => {
             if (item.select) {
-              acc[item.key] = item.value;
+              const [key] = replaceVariables(item.key, variables);
+              const [value] = replaceVariables(item.value, variables);
+              const keyText = String(key);
+              acc[keyText] = String(value);
             }
             return acc;
           }, {})
@@ -42,9 +56,10 @@ export async function sendRequest(userId: string) {
         break;
     }
   }
+  const [newUrl] = replaceVariables(url, variables);
   const startTime = performance.now();
   const { response, responseBody, error } = await fetchRequest(
-    url,
+    String(newUrl),
     {
       method,
       headers,
@@ -69,7 +84,7 @@ export async function sendRequest(userId: string) {
     requestSize,
     responseSize,
     error,
-    endpoint: url,
+    endpoint: String(newUrl),
     query: state.query,
     headers: state.headers,
     body: state.body,
@@ -78,5 +93,5 @@ export async function sendRequest(userId: string) {
 
   await sendHistory(userId, historyItem);
 
-  return { response, responseBody, historyItem };
+  return { response, responseBody, historyItem, error };
 }
