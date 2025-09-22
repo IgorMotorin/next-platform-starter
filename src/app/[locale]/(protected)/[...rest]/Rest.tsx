@@ -56,7 +56,7 @@ export default function Rest({
       if (response) {
         setResponse(response);
       }
-      toast.error(error);
+      if (error) toast.error(error);
     } catch (err: unknown) {
       if (err instanceof Error) {
         setError(err.message);
